@@ -21,11 +21,19 @@ GPU: AMD ATI Radeon RX 5600 OEM/5600 XT / 5700/5700 XT
 
 # Software Preferences
 Text Editor: [neovim](https://github.com/neovim/neovim)
+
 Screenshot: [flameshot](https://github.com/flameshot-org/flameshot)
+
 Gif Recorder: [Peek](https://github.com/phw/peek)
+
 Notes: [Obsidian](obsidian.md/)
+
 Shell: [zsh (Oh-My-Zsh)](https://ohmyz.sh/)
+
 Terminal: [Terminator](https://terminator-gtk3.readthedocs.io/en/latest/) with [Terminator Themes](https://github.com/EliverLara/terminator-themes)
+
 News/rss: [Newsboat](https://github.com/newsboat/newsboat)
+
 Launcher: [rofi](https://github.com/davatorium/rofi)
+
 Filemanager: [Nautilus](https://github.com/GNOME/nautilus) and [ranger](https://github.com/ranger/ranger)
