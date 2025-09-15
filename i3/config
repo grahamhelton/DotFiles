@@ -1,0 +1,250 @@
+# ===================================
+# i3 Window Manager Configuration
+# ===================================
+# This file configures the i3 tiling window manager
+# For complete reference: https://i3wm.org/docs/userguide.html
+
+# ===================================
+# BASIC SETTINGS
+# ===================================
+
+# Set modifier key (Windows key) for laptop
+set $mod Mod4
+# Set modifier key (Alt key)
+# set $mod Mod1
+
+# Font for window titles and bar (if not overridden)
+font pango:System San Francisco Display 9
+
+# Use Mouse+$mod to drag floating windows
+floating_modifier $mod
+
+# ===================================
+# WORKSPACE DEFINITIONS
+# ===================================
+
+# Define workspace names for better organization
+set $workspace1  "1: Terminal"
+set $workspace2  "2: Web"
+set $workspace3  "3: Working"
+set $workspace4  "4: Working"
+set $workspace5  "5: General"
+set $workspace6  "6: Dashboard"
+set $workspace7  "7: General"
+set $workspace8  "8: Personal Obsidian"
+set $workspace9  "9: DISTRACTIONS"
+set $workspace10 "10: Dev Null"
+
+# ===================================
+# KEY BINDINGS - BASIC CONTROLS
+# ===================================
+
+# Terminal
+bindsym $mod+Return exec /usr/bin/ghostty
+
+# Application launcher
+bindsym $mod+d exec rofi -show run
+bindsym $mod+shift+r exec --no-startup-id rofi -show drun -run-shell-command '{terminal} -e zsh -ic "{cmd} && read"'
+
+# Kill focused window
+bindsym $mod+q kill
+
+# ===================================
+# KEY BINDINGS - WINDOW NAVIGATION
+# ===================================
+
+# Change focus (vim-like keys)
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# Move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# ===================================
+# KEY BINDINGS - LAYOUT CONTROLS
+# ===================================
+
+# Split containers
+bindsym $mod+b split h
+bindsym $mod+v split v
+
+# Fullscreen mode
+bindsym $mod+f fullscreen toggle
+
+# Container layout modes
+bindsym $mod+control+s layout stacking
+bindsym $mod+control+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# Toggle floating/tiling
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space focus mode_toggle
+
+# Focus parent/child containers
+bindsym $mod+a focus parent
+# bindsym $mod+d focus child  # Commented out (conflicts with launcher)
+
+# ===================================
+# KEY BINDINGS - WORKSPACE SWITCHING
+# ===================================
+
+# Switch to workspace
+bindsym $mod+1 workspace $workspace1
+bindsym $mod+2 workspace $workspace2
+bindsym $mod+3 workspace $workspace3
+bindsym $mod+4 workspace $workspace4
+bindsym $mod+5 workspace $workspace5
+bindsym $mod+6 workspace $workspace6
+bindsym $mod+7 workspace $workspace7
+bindsym $mod+8 workspace $workspace8
+bindsym $mod+9 workspace $workspace9
+bindsym $mod+0 workspace $workspace10
+
+# Move container to workspace
+bindsym $mod+Shift+1 move container to workspace $workspace1
+bindsym $mod+Shift+2 move container to workspace $workspace2
+bindsym $mod+Shift+3 move container to workspace $workspace3
+bindsym $mod+Shift+4 move container to workspace $workspace4
+bindsym $mod+Shift+5 move container to workspace $workspace5
+bindsym $mod+Shift+6 move container to workspace $workspace6
+bindsym $mod+Shift+7 move container to workspace $workspace7
+bindsym $mod+Shift+8 move container to workspace $workspace8
+bindsym $mod+Shift+9 move container to workspace $workspace9
+bindsym $mod+Shift+0 move container to workspace $workspace10
+
+# ===================================
+# KEY BINDINGS - SYSTEM CONTROLS
+# ===================================
+
+# i3 management
+bindsym $mod+shift+u reload                    # Reload config
+bindsym $mod+Shift+y restart                   # Restart i3
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+# Resize mode
+bindsym $mod+r mode "resize"
+
+# ===================================
+# KEY BINDINGS - APPLICATIONS
+# ===================================
+
+# Web browsers
+bindsym $mod+shift+w exec /usr/bin/firefox
+bindsym $mod+shift+f exec /usr/bin/firefox feedbin.com
+
+# Communication
+bindsym $mod+shift+d exec /usr/bin/discord
+
+# Media and utilities
+bindsym $mod+p exec /usr/bin/flameshot gui     # Screenshot
+#bindsym $mod+Shift+p exec --no-startup-id ~/gifs/gif.sh
+bindsym $mod+Shift+g exec --no-startup-id ~/gifs/gif-record-drag.sh
+bindsym $mod+Shift+p exec --no-startup-id ~/gifs/gif-record-window.sh
+
+bindsym $mod+shift+c exec /usr/bin/gnome-calculator
+
+# System utilities
+bindsym $mod+shift+v exec /usr/bin/pavucontrol    # Volume control
+bindsym $mod+shift+b exec /usr/bin/blueman-manager # Bluetooth
+bindsym $mod+shift+t exec /usr/bin/flatpak run com.mastermindzh.tidal-hifi
+
+# Productivity
+bindsym $mod+shift+o exec /usr/bin/obsidian
+bindsym $mod+shift+s exec /usr/bin/signal-desktop --password-store="gnome-libsecret"
+
+# ===================================
+# RESIZE MODE
+# ===================================
+
+mode "resize" {
+    # Resize windows using vim-like keys
+    bindsym h resize shrink width 10 px or 10 ppt
+    bindsym j resize grow height 10 px or 10 ppt
+    bindsym k resize shrink height 10 px or 10 ppt
+    bindsym l resize grow width 10 px or 10 ppt
+
+    # Exit resize mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+# ===================================
+# WINDOW RULES
+# ===================================
+
+# Default border for all windows
+for_window [class="^.*"] border pixel 1
+
+# Floating windows
+for_window [class="gnome-calculator"] floating enable
+for_window [class="org.gnome.Nautilus"] floating enable
+
+# ===================================
+# COLORS AND THEMING
+# ===================================
+
+# Window colors (focused windows)
+client.focused #555555 #555555 #ffffff #2e9ef4 #6BBEE8
+
+# ===================================
+# STARTUP APPLICATIONS
+# ===================================
+
+# System services
+# exec --no-startup-id dunst                     # Notification daemon
+exec --no-startup-id nm-applet                   # Network manager applet
+
+# Compositor (choose one - picom is newer than compton)
+exec_always --no-startup-id picom -b
+# exec --no-startup-id /usr/bin/compton -b -f -D 2  # OLD - replaced by picom
+
+# Status bar (kill existing instances before starting new one)
+# polybar location  ~/.config/polybar/config.ini
+exec_always --no-startup-id killall -q polybar; while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done; /usr/bin/polybar &
+
+# Wallpaper (dual monitor support)
+exec --no-startup-id feh --bg-fill /home/graham/Pictures/wallpapers/background.jpg
+
+# ===================================
+# DISABLED/COMMENTED SECTIONS
+# ===================================
+
+# Default i3bar (disabled in favor of polybar)
+# bar {
+#     position bottom
+#     status_command exec i3status 
+#     font xft:Sans 11
+# }
+
+# Auto-start applications in specific workspaces (disabled)
+# exec --no-startup-id i3-msg 'workspace $workspace3; exec /usr/bin/discord'
+# exec --no-startup-id i3-msg 'workspace $workspace2; exec /usr/bin/brave-browser'
+# exec --no-startup-id i3-msg 'workspace $workspace1; exec /usr/local/bin/alacritty'
+
+
+for_window [class="cs2"] floating enable
+for_window [class="cs2"] border none
+
+for_window [class="cs2"] focus
+for_window [class="cs2"] fullscreen enable
+
+
+
+# Audio controls
+# Requires: sudo apt install pulseaudio-utils
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+
+# Brightness controls
+bindsym XF86MonBrightnessUp exec brightnessctl set +5%
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+# Keyboard (fn+space)
+bindsym XF86KbdBrightnessUp exec brightnessctl --device='tpacpi::kbd_backlight' set +1
+bindsym XF86KbdBrightnessDown exec brightnessctl --device='tpacpi::kbd_backlight' set 1-
