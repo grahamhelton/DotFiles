@@ -1,0 +1,9 @@
+[Unit]
+Description="Runs graham_clear_downloads.service every day"
+Requires=graham_clear_downloads.service
+
+[Timer]
+OnCalendar=daily
+
+[Install]
+WantedBy=timers.target
