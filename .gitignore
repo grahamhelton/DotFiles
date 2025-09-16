@@ -1,0 +1,25 @@
+# Ignore everything
+/*
+/*/
+
+# Except...
+!README.md
+!.gitignore
+!/i3/
+!/ghostty/
+!/nvim/
+!/picom/
+
+# Each dir must be "unignored"
+!/systemd/
+/systemd/*
+!/systemd/user/
+/systemd/user/*
+!/systemd/user/graham*
+
+# Zsh
+!/zsh/
+/zsh/*
+!/zsh/*
+!/zsh/modules/
+!/zsh/modules/*
