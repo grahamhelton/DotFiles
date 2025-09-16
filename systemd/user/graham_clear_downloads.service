@@ -3,4 +3,4 @@ Description="Removes files in ~/Downloads that are older than a week"
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/find %h/Downloads -type f -mtime +7 -delete
+ExecStart=/usr/bin/find %h/Downloads -mtime +7 -exec rm -rf {} + 
