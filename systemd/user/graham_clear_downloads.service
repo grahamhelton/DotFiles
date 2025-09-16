@@ -4,3 +4,6 @@ Description="Removes files in ~/Downloads that are older than a week"
 [Service]
 Type=oneshot
 ExecStart=/usr/bin/find %h/Downloads -mtime +7 -exec rm -rf {} + 
+
+[Install]
+WantedBy=default.target
