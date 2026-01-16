@@ -1,4 +1,3 @@
-local lspconfig = require 'lspconfig'
 return {
   {
     'neovim/nvim-lspconfig',
@@ -16,13 +15,15 @@ return {
         jsonls = {},
         jsonnet_ls = {},
         lua_ls = {
-          Lua = {
-            workspace = { checkThirdParty = false },
-            telemetry = { enable = false },
+          settings = {
+            Lua = {
+              workspace = { checkThirdParty = false },
+              telemetry = { enable = false },
+            },
           },
         },
         marksman = {},
-        -- regols is not maanged by Mason. i install it with `brew install kitagry/tap/regols`.
+        -- regols is not managed by Mason. install with `brew install kitagry/tap/regols`.
         -- See: https://github.com/kitagry/regols
         regols = {},
         -- This should be renamed to `ruby_lsp` once this PR gets merged
@@ -36,7 +37,7 @@ return {
         rubocop = {
           -- See: https://docs.rubocop.org/rubocop/usage/lsp.html
           cmd = { 'bundle', 'exec', 'rubocop', '--lsp' },
-          root_dir = lspconfig.util.root_pattern('Gemfile', '.git', '.'),
+          root_markers = { 'Gemfile', '.git' },
         },
         sqlls = {},
         terraformls = {},
@@ -91,9 +92,10 @@ return {
         end,
       })
 
-      -- Set up servers
+      -- Set up servers using Neovim 0.11+ native API
       for server, config in pairs(opts.servers) do
-        require('lspconfig')[server].setup(config)
+        vim.lsp.config(server, config)
+        vim.lsp.enable(server)
       end
     end,
   },

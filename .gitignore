@@ -10,6 +10,7 @@
 !/ghostty/
 !/nvim/
 !/picom/
+!/scripts/
 
 # Each dir must be "unignored"
 !/systemd/
